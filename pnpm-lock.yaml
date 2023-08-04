@@ -17,6 +17,12 @@ devDependencies:
   svelte-check:
     specifier: ^3.4.3
     version: 3.4.6(svelte@4.1.2)
+  tweetnacl:
+    specifier: ^1.0.3
+    version: 1.0.3
+  tweetnacl-util:
+    specifier: ^0.15.1
+    version: 0.15.1
   typescript:
     specifier: ^5.0.0
     version: 5.1.6
@@ -1015,6 +1021,14 @@ packages:
   /totalist@3.0.1:
     resolution: {integrity: sha512-sf4i37nQ2LBx4m3wB74y+ubopq6W/dIzXg0FDGjsYnZHVa1Da8FH853wlL2gtUhg+xJXjfk3kUZS3BRoQeoQBQ==}
     engines: {node: '>=6'}
+    dev: true
+
+  /tweetnacl-util@0.15.1:
+    resolution: {integrity: sha512-RKJBIj8lySrShN4w6i/BonWp2Z/uxwC3h4y7xsRrpP59ZboCd0GpEVsOnMDYLMmKBpYhb5TgHzZXy7wTfYFBRw==}
+    dev: true
+
+  /tweetnacl@1.0.3:
+    resolution: {integrity: sha512-6rt+RN7aOi1nGMyC4Xa5DdYiukl2UWCbcJft7YhxReBGQD7OAM8Pbxw6YMo4r2diNEA8FEmu32YOn9rhaiE5yw==}
     dev: true
 
   /typescript@5.1.6:
