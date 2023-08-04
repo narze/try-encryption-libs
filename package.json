@@ -17,7 +17,9 @@
 		"tweetnacl": "^1.0.3",
 		"tweetnacl-util": "^0.15.1",
 		"typescript": "^5.0.0",
-		"vite": "^4.4.2"
+		"vite": "^4.4.2",
+		"wasm-themis": "^0.15.0",
+		"ws": "^8.13.0"
 	},
 	"type": "module"
 }

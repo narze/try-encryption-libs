@@ -29,6 +29,12 @@ devDependencies:
   vite:
     specifier: ^4.4.2
     version: 4.4.8
+  wasm-themis:
+    specifier: ^0.15.0
+    version: 0.15.0
+  ws:
+    specifier: ^8.13.0
+    version: 8.13.0
 
 packages:
 
@@ -1090,6 +1096,23 @@ packages:
       vite: 4.4.8
     dev: true
 
+  /wasm-themis@0.15.0:
+    resolution: {integrity: sha512-QEZ/uzmYOM1JtWawItgJps2/E+bJKgDs/3qR0bxyOZ+qY4aoDz6H4uCCEkibyVFyp3HnZ4wius6KFyVTIAkqtA==}
+    dev: true
+
   /wrappy@1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
+    dev: true
+
+  /ws@8.13.0:
+    resolution: {integrity: sha512-x9vcZYTrFPC7aSIbj7sRCYo7L/Xb8Iy+pW0ng0wt2vCJv7M9HOMy0UoN3rr+IFC7hb7vXoqS+P9ktyLLLhO+LA==}
+    engines: {node: '>=10.0.0'}
+    peerDependencies:
+      bufferutil: ^4.0.1
+      utf-8-validate: '>=5.0.2'
+    peerDependenciesMeta:
+      bufferutil:
+        optional: true
+      utf-8-validate:
+        optional: true
     dev: true
