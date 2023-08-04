@@ -11,6 +11,7 @@
   const newKey = () => (key = generateKey())
 
   let key = ""
+  let elapsed = 0
 
   export const generateKey = () =>
     encodeBase64(randomBytes(secretbox.keyLength))
@@ -56,31 +57,50 @@
   function encryptMessage() {
     output = ""
     const obj = { msg: input }
+
+    const start = performance.now()
+
     output = encrypt(obj, key)
+
+    const end = performance.now()
+    elapsed = end - start
   }
 
   function decryptMessage() {
     decrypted = ""
     // const obj = { msg: output }
+    const start = performance.now()
+
     const obj = decrypt(output, key)
     decrypted = obj.msg
+
+    const end = performance.now()
+    elapsed = end - start
   }
 </script>
 
 <h1>TweetNaCl.js - Secretbox (Single key)</h1>
 
-<input type="text" bind:value={key} />
-<button on:click={newKey}>Generate new key</button>
+<div>
+  <button on:click={newKey}>Generate new key</button>
+  <input type="text" bind:value={key} />
+</div>
 
-<span>Input</span>
-<textarea name="" id="" cols="30" rows="10" bind:value={input} />
+<div>
+  <span>Input</span>
+  <input bind:value={input} />
+</div>
 
-<button on:click={encryptMessage}>Encrypt Message</button>
+<div>
+  <button on:click={encryptMessage}>Encrypt Message</button>
 
-<span>Output</span>
-<textarea name="" id="" cols="30" rows="10" bind:value={output} />
+  <span>Output</span>
+  <input bind:value={output} />
+</div>
+<div>
+  <button on:click={decryptMessage}>Decrypt Message</button>
 
-<button on:click={decryptMessage}>Decrypt Message</button>
-
-<span>Decrypt</span>
-<textarea name="" id="" cols="30" rows="10" bind:value={decrypted} />
+  <span>Decrypt</span>
+  <input bind:value={decrypted} />
+</div>
+<div>Time: {elapsed} ms</div>

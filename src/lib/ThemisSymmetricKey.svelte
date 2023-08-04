@@ -8,7 +8,6 @@
   let cell, symmetricKey
 
   let input = "Hello world"
-  let passphrase = "password"
   let themisInitialized = false
   let encrypted = ""
   let decrypted = ""
@@ -16,12 +15,17 @@
 
   onMount(() => {
     Themis.initialize(libthemis).then(() => {
+      symmetricKey = new Themis.SymmetricKey()
       themisInitialized = true
     })
   })
 
-  $: if (themisInitialized && passphrase) {
-    cell = Themis.SecureCellSeal.withPassphrase(passphrase)
+  $: if (themisInitialized && symmetricKey) {
+    cell = Themis.SecureCellSeal.withKey(symmetricKey)
+  }
+
+  function regenerateSymmetricKey() {
+    symmetricKey = new Themis.SymmetricKey()
   }
 
   function encryptMessage() {
@@ -46,9 +50,12 @@
   }
 </script>
 
-<h1>Themis (Secure Cell - Seal Mode with passphrase)</h1>
+<h1>Themis (Secure Cell - Seal Mode with Symmetric Key)</h1>
 
-<div>Passphrase: <input bind:value={passphrase} /></div>
+<div>
+  Symmetric key:<input bind:value={symmetricKey} />
+  <button on:click={regenerateSymmetricKey}>Regenerate</button>
+</div>
 <div>
   Input: <input bind:value={input} />
 </div>
