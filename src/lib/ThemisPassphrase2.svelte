@@ -4,6 +4,7 @@
 
   import Themis from "wasm-themis"
   import libthemis from "wasm-themis/dist/libthemis.wasm?url"
+  import { pbkdf2Async } from "@noble/hashes/pbkdf2"
 
   let cell, symmetricKey
 
@@ -20,8 +21,23 @@
     })
   })
 
-  $: if (themisInitialized && passphrase) {
-    cell = Themis.SecureCellSeal.withPassphrase(passphrase)
+  $: if (themisInitialized && symmetricKey) {
+    cell = Themis.SecureCellSeal.withKey(symmetricKey)
+  }
+
+  import { sha256 } from "@noble/hashes/sha256"
+
+  async function generateKey() {
+    const start = performance.now()
+
+    symmetricKey = await pbkdf2Async(sha256, passphrase, "salt", {
+      c: 314110,
+      dkLen: 32,
+    })
+
+    const end = performance.now()
+
+    elapsed = end - start
   }
 
   function encryptMessage() {
@@ -46,9 +62,18 @@
   }
 </script>
 
-<h1>Themis (Secure Cell - Seal Mode with passphrase)</h1>
+<h1>
+  Themis (Secure Cell - Seal Mode with passphrase with 3rd party PBKDF2 library)
+</h1>
 
-<div>Passphrase: <input bind:value={passphrase} /></div>
+<div>
+  Passphrase: <input bind:value={passphrase} />
+  <button on:click={generateKey}>Generate Key</button>
+</div>
+
+<div>
+  Symmetric key:<input bind:value={symmetricKey} />
+</div>
 <div>
   Input: <input bind:value={input} />
 </div>

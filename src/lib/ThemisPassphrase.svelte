@@ -5,9 +5,10 @@
   import Themis from "wasm-themis"
   import libthemis from "wasm-themis/dist/libthemis.wasm?url"
 
-  let cell, symmetricKey
+  let cell
 
   let input = "Hello world"
+  let passphrase = "password"
   let themisInitialized = false
   let encrypted = ""
   let decrypted = ""
@@ -15,20 +16,13 @@
 
   onMount(() => {
     Themis.initialize(libthemis).then(() => {
-      symmetricKey = new Themis.SymmetricKey()
       themisInitialized = true
     })
   })
 
-  $: if (themisInitialized && symmetricKey) {
-    cell = Themis.SecureCellSeal.withKey(symmetricKey)
+  $: if (themisInitialized && passphrase) {
+    cell = Themis.SecureCellSeal.withPassphrase(passphrase)
   }
-
-  function regenerateSymmetricKey() {
-    symmetricKey = new Themis.SymmetricKey()
-  }
-
-  $: console.log({ symmetricKey })
 
   function encryptMessage() {
     encrypted = ""
@@ -52,12 +46,9 @@
   }
 </script>
 
-<h1>Themis (Secure Cell - Seal Mode with Symmetric Key)</h1>
+<h1>Themis (Secure Cell - Seal Mode with passphrase)</h1>
 
-<div>
-  Symmetric key:<input bind:value={symmetricKey} />
-  <button on:click={regenerateSymmetricKey}>Regenerate</button>
-</div>
+<div>Passphrase: <input bind:value={passphrase} /></div>
 <div>
   Input: <input bind:value={input} />
 </div>
